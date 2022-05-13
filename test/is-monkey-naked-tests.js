@@ -36,14 +36,13 @@ describe("isNaked", function(){
   it("successfully returns true for all naked monkeys", async function(){
     for(const id of nakedIds){
       expect(await this.isMonkeyNaked.isNaked(id)).to.true
-      break
     }
   })
 
-  it("successfully returns false for not naked monkeys", async function(){
-    for(const id of nakedIds){
-      expect(await this.isMonkeyNaked.isNaked(id)).to.true
-      break
+  it("successfully returns false for random not naked monkeys", async function(){
+    for(let i=0; i<300; i++){
+      let id = notNakedIds.random()
+      expect(await this.isMonkeyNaked.isNaked(id)).to.false
     }
   })
 
@@ -51,5 +50,8 @@ describe("isNaked", function(){
     await expect(this.isMonkeyNaked.isNaked(-1)).to.reverted
     await expect(this.isMonkeyNaked.isNaked(12840)).to.reverted
   })
-
 })
+
+Array.prototype.random = function () {
+  return this[Math.floor((Math.random()*this.length))];
+}

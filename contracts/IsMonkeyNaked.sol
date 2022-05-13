@@ -34,6 +34,6 @@ contract IsMonkeyNaked {
         // if there is two double digit trait before
         if(earrings == bytes1(0x2c)) earrings = bytes1(attrs.slice(14, 15));
         
-        return (hat & clothes & earrings) == bytes1(0x30);
+        return (hat | clothes | earrings) == bytes1(0x30);
     }
 }
