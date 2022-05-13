@@ -16,8 +16,6 @@ const notNakedIds =
     .map(x => x.toString())
     .filter(x => !nakedIds.includes(x))
 
-console.log(`There are ${nakedIds.length} naked monkeys.`)
-
 before(async function() {
   // deploy OCM contract
   let OnChainMonkey = await ethers.getContractFactory("OnChainMonkey")
@@ -33,13 +31,13 @@ before(async function() {
 })
 
 describe("isNaked", function(){
-  it("successfully returns true for all naked monkeys", async function(){
+  it(`successfully returns true for all ${nakedIds.length} naked monkeys`, async function(){
     for(const id of nakedIds){
       expect(await this.isMonkeyNaked.isNaked(id)).to.true
     }
   })
 
-  it("successfully returns false for random not naked monkeys", async function(){
+  it("successfully returns false for 300 random not naked monkeys", async function(){
     for(let i=0; i<300; i++){
       let id = notNakedIds.random()
       expect(await this.isMonkeyNaked.isNaked(id)).to.false
